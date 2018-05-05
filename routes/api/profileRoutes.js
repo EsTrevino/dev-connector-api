@@ -18,7 +18,9 @@ router.get('/test', (req, res) => {
 //@desc:   Get current users profile
 //@access: private route
 router.get('/', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Profile.findOne({user: req.user.id}).then(profile => {
+  Profile.findOne({user: req.user.id})
+  .populate('user', ['name', 'avatar'])
+  .then(profile => {
     if (!profile) {
       return res.status(404).json({message: "No profile for this user"});
     }
@@ -42,7 +44,10 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
 
   //skills split into an array
   if(typeof req.body.skills !== 'undefined'){
-    profileFields.skills = req.body.skills.split(',');
+    profileFields.skills = req.body.skills.split(',').map(skill =>{
+      return skill.trim();
+    });
+
   }
 
   //social
