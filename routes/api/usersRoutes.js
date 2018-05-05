@@ -8,7 +8,6 @@ const passport = require('passport');
 const User = require('../../models/User');
 const keys = require('../../config/keys');
 
-
 //@route:  GET 'api/users/test'
 //@desc: 'tests post route'
 //@access: public route
@@ -56,7 +55,6 @@ router.post('/register', (req, res) =>{
 //@route:  POST 'api/users/login'
 //@desc: login user, return jwt token
 //@access: public
-
 router.post('/login', (req, res) =>{
   const {email, password} = req.body;
   const {secretOrKey} = keys;
