@@ -15,7 +15,7 @@ router.get('/test', (req, res) =>{
   res.json({message: "User route works"});
 });
 
-//@route:  GET 'api/users/register'
+//@route:  POST 'api/users/register'
 //@desc: register a user
 //@access: public route
 router.post('/register', (req, res) =>{
