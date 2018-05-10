@@ -14,13 +14,13 @@ export function signInUser({email, password}){
             dispatch({type: AUTH_USER});
           //-save jwt token
             localStorage.setItem('token', response.data.token);
-          //-redirect to route '/developer'
-            history.push('/developer');
+          //-redirect to route
+            // history.push('/developer');
       })
-      // .catch(() => {
-      //   //if request is not successful..
-      //     //show error to user
-      //     // dispatch(authError('Incorrect Email or Password. Please try again'));
-      // });
+      .catch(() => {
+        //if request is not successful..
+          //show error to user
+          // dispatch(authError('Incorrect Email or Password. Please try again'));
+      });
   }
 }
