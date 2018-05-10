@@ -37,3 +37,9 @@ img {
 .form-control::placeholder {
   color: #bbb !important;
 }
+
+.invalid{
+  color: red;
+  font-style: italic;
+  font-size: 12px;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 class Navbar extends Component {
   render() {
@@ -6,7 +7,7 @@ class Navbar extends Component {
       <div>
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
         <div className="container">
-          <a className="navbar-brand" href="landing.html">DevConnector</a>
+          <Link className="navbar-brand" to="/">DevConnector</Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -14,42 +15,22 @@ class Navbar extends Component {
           <div className="collapse navbar-collapse" id="mobile-nav">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <a className="nav-link" href="profiles.html">
-                  Developers
-                </a>
+                <Link className="nav-link" to="/developer">Developers</Link>
               </li>
             </ul>
 
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <a className="nav-link" href="register.html">Sign Up</a>
+                <Link className="nav-link" to="/register">Sign Up</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="login.html">Login</a>
+                <Link className="nav-link" to="/login">Log In</Link>
               </li>
             </ul>
           </div>
         </div>
       </nav>
-
-      <div className="landing">
-        <div className="dark-overlay landing-inner text-light">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12 text-center">
-                <h1 className="display-3 mb-4">Developer Connector
-                </h1>
-                <p className="lead">
-                  Create a developer profile/portfolio, share posts and get help from other developers</p>
-                <hr/>
-                <a href="register.html" className="btn btn-lg btn-info mr-2">Sign Up</a>
-                <a href="login.html" className="btn btn-lg btn-light">Login</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
+    </div>
     );
   }
 }
