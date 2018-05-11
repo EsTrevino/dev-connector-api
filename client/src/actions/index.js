@@ -1,36 +1,59 @@
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 import history from "../history";
-import { AUTH_USER, ERROR_DISPATCH, CLEAR_ERROR } from "./types";
+import setAuthToken from "../utils/SetAuthToken";
+import { AUTH_USER, GET_ERRORS, CLEAR_ERRORS } from "./types";
+
 const ROOT_URL = "http://localhost:5000/api";
 
-export function signInUser({ email, password }) {
-  return function(dispatch) {
-    //submit email password to server
-    axios
-      .post(`${ROOT_URL}/users/login`, { email, password })
-      .then(response => {
-        //if request is successful....
-        //-update state to indicate user is authenticated
-        console.log(response);
-        dispatch({
-          type: AUTH_USER
-        });
-        //-save jwt token
-        localStorage.setItem("token", response.data.token);
-        //-redirect to route
-        history.push("/developer");
-        //clear error state in store
-        dispatch({
-          type: CLEAR_ERROR
-        });
-      })
-      .catch(err => {
-        //if request is not successful..
-        //show error to user
-        dispatch({
-          type: ERROR_DISPATCH,
-          payload: err.response.data
-        });
+export const signInUser = ({ email, password }) => dispatch => {
+  //submit email password to server
+  axios
+    .post(`${ROOT_URL}/users/login`, { email, password })
+    .then(response => {
+      //if request is successful....
+      //-save jwt token
+      let token = response.data.token;
+      localStorage.setItem("token", token);
+      //-set token to auth header
+      setAuthToken(token);
+      //decode jwt token to get user information
+      let decoded = jwt_decode(token);
+      //clear errorMessage state in store
+      dispatch({
+        type: CLEAR_ERRORS
       });
-  };
-}
+      //-update state to indicate user is authenticated
+      dispatch({
+        type: AUTH_USER,
+        payload: decoded
+      });
+      //-redirect to route
+      history.push("/developer");
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
+export const signUpUser = ({ name, email, password }) => dispatch => {
+  axios
+    .post(`${ROOT_URL}/users/register`, { name, email, password })
+    .then(response => {
+      //clear errorMessage state in store
+      dispatch({
+        type: CLEAR_ERRORS
+      });
+      //-redirect to route
+      history.push("/login");
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};

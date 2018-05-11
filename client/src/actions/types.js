@@ -1,3 +1,3 @@
-export const CLEAR_ERROR = "clear_error";
 export const AUTH_USER = "auth_user";
-export const ERROR_DISPATCH = "error_dispatch";
+export const GET_ERRORS = "get_errors";
+export const CLEAR_ERRORS = "clear_errors";

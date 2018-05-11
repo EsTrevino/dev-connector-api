@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
 import classnames from "classnames";
+import * as actions from "../../actions";
 
 class Register extends Component {
   renderField(field) {
@@ -8,7 +10,8 @@ class Register extends Component {
       <div className="form-group">
         <input
           className={classnames("form-control form-control-lg", {
-            "is-invalid": field.meta.touched && !field.meta.valid
+            "is-invalid": field.meta.touched && !field.meta.valid,
+            "is-valid": field.meta.touched && field.meta.valid
           })}
           type={field.type}
           placeholder={field.placeholder}
@@ -27,8 +30,21 @@ class Register extends Component {
     );
   }
 
-  onSubmit(values) {
-    console.log(values);
+  onSubmit({ name, email, password }) {
+    this.props.signUpUser({ name, email, password });
+  }
+
+  renderAlert() {
+    if (this.props.errors.message) {
+      return (
+        <div className="alert alert-danger error-message mt-4 text-center">
+          <h3>
+            <i className="fas fa-info-circle" />
+          </h3>
+          <h6 className="invalid">{this.props.errors.message}</h6>
+        </div>
+      );
+    }
   }
 
   render() {
@@ -76,6 +92,7 @@ class Register extends Component {
                 <button action="submit" className="btn btn-info btn-block mt-4">
                   Sign Up <i className="fas fa-user-plus" />
                 </button>
+                {this.renderAlert()}
               </form>
             </div>
           </div>
@@ -109,7 +126,11 @@ function validate(values) {
   return errors;
 }
 
+const mapStateToProps = state => ({
+  errors: state.errors
+});
+
 export default reduxForm({
   validate,
   form: "RegisterForm"
-})(Register);
+})(connect(mapStateToProps, actions)(Register));

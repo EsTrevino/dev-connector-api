@@ -1,20 +1,16 @@
-import {AUTH_USER, ERROR_DISPATCH, CLEAR_ERROR} from '../actions/types';
+import { AUTH_USER } from "../actions/types";
 
 const initialState = {
   isAuthenticated: false,
   user: {}
-}
+};
 
-export default function(state = initialState, action){
-  switch(action.type){
+export default function(state = initialState, action) {
+  switch (action.type) {
     case AUTH_USER:
-    return {...state, isAuthenticated: true};
-    case ERROR_DISPATCH:
-    return {...state, errorMessage: action.payload};
-    case CLEAR_ERROR:
-    return {...state, errorMessage: null};
+      return { ...state, isAuthenticated: true, user: action.payload };
     default:
-    return state;
+      return state;
   }
   return state;
 }

@@ -30,19 +30,21 @@ class Login extends Component {
     );
   }
 
+  onSubmit({ email, password }) {
+    this.props.signInUser({ email, password });
+  }
+
   renderAlert() {
-    if (this.props.errorMessage) {
+    if (this.props.errors.message) {
       return (
         <div className="alert alert-danger error-message mt-4 text-center">
-          <i className="fas fa-info-circle" />
-          <h4 className="invalid">{this.props.errorMessage.message}</h4>
+          <h3>
+            <i className="fas fa-info-circle" />
+          </h3>
+          <h6 className="invalid">{this.props.errors.message}</h6>
         </div>
       );
     }
-  }
-
-  onSubmit({ email, password }) {
-    this.props.signInUser({ email, password });
   }
 
   render() {
@@ -98,9 +100,9 @@ function validate(values) {
   return errors;
 }
 
-function mapStateToProps(state) {
-  return { errorMessage: state.auth.errorMessage };
-}
+const mapStateToProps = state => ({
+  errors: state.errors
+});
 
 export default reduxForm({
   validate,
