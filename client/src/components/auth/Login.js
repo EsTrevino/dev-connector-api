@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import classnames from "classnames";
 import * as actions from "../../actions";
 
 class Login extends Component {
+  componentDidMount() {
+    if (this.props.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
   renderField(field) {
     return (
       <div className="form-group">
@@ -101,10 +107,11 @@ function validate(values) {
 }
 
 const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
   errors: state.errors
 });
 
 export default reduxForm({
   validate,
   form: "LoginForm"
-})(connect(mapStateToProps, actions)(Login));
+})(withRouter(connect(mapStateToProps, actions)(Login)));

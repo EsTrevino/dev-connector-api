@@ -2,7 +2,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import history from "../history";
 import setAuthToken from "../utils/SetAuthToken";
-import { AUTH_USER, GET_ERRORS, CLEAR_ERRORS } from "./types";
+import { AUTH_USER, GET_ERRORS, CLEAR_ERRORS, LOGOUT_USER } from "./types";
 
 const ROOT_URL = "http://localhost:5000/api";
 
@@ -29,7 +29,7 @@ export const signInUser = ({ email, password }) => dispatch => {
         payload: decoded
       });
       //-redirect to route
-      history.push("/developer");
+      history.push("/dashboard");
     })
     .catch(err => {
       dispatch({
@@ -56,4 +56,15 @@ export const signUpUser = ({ name, email, password }) => dispatch => {
         payload: err.response.data
       });
     });
+};
+
+export const logoutUser = () => dispatch => {
+  //remove token from localStorage
+  localStorage.removeItem("token");
+  //remove value in Authorization Header
+  setAuthToken(false);
+  //set current user to empty object
+  dispatch({
+    type: LOGOUT_USER
+  });
 };

@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import classnames from "classnames";
 import * as actions from "../../actions";
 
 class Register extends Component {
+  componentDidMount() {
+    if (this.props.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
   renderField(field) {
     return (
       <div className="form-group">
@@ -127,10 +133,11 @@ function validate(values) {
 }
 
 const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
   errors: state.errors
 });
 
 export default reduxForm({
   validate,
   form: "RegisterForm"
-})(connect(mapStateToProps, actions)(Register));
+})(withRouter(connect(mapStateToProps, actions)(Register)));
