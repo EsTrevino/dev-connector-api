@@ -2,7 +2,14 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import history from "../history";
 import setAuthToken from "../utils/SetAuthToken";
-import { AUTH_USER, GET_ERRORS, CLEAR_ERRORS, LOGOUT_USER } from "./types";
+import {
+  AUTH_USER,
+  GET_ERRORS,
+  CLEAR_ERRORS,
+  LOGOUT_USER,
+  GET_PROFILE,
+  PROFILE_LOADING
+} from "./types";
 
 const ROOT_URL = "http://localhost:5000/api";
 
@@ -67,4 +74,26 @@ export const logoutUser = () => dispatch => {
   dispatch({
     type: LOGOUT_USER
   });
+};
+
+export const getCurrentUserProfile = () => dispatch => {
+  //set profile loading status
+  dispatch({
+    type: PROFILE_LOADING
+  });
+  //make requests to get profile
+  axios
+    .get(`${ROOT_URL}/profile`)
+    .then(response => {
+      dispatch({
+        type: GET_PROFILE,
+        payload: response.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_PROFILE,
+        payload: {}
+      });
+    });
 };

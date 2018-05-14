@@ -39,7 +39,7 @@ class Navbar extends Component {
           <img
             src={this.props.user.avatar}
             alt={this.props.user.name}
-            style={{ width: "40px", marginRight: "10px", borderRadius: "10%" }}
+            style={{ width: "40px", marginRight: "2px", borderRadius: "50%" }}
             title="You must have a Gravatar connected to your email to display an image"
           />
         </li>,

@@ -10,6 +10,7 @@ import Landing from "./layout/Landing";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
 import Test from "./test";
+import Dashboard from "./dashboard/Dashboard";
 import "../style/app.css";
 import setAuthToken from "../utils/SetAuthToken";
 import requireAuth from "./auth/requireAuth";
@@ -42,8 +43,8 @@ class App extends Component {
           <div className="container">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/dashboard" component={requireAuth(Test)} />
-            <Route exact path="/developers" component={Test} />
+            <Route exact path="/dashboard" component={requireAuth(Dashboard)} />
+            <Route exact path="/createProfile" component={requireAuth(Test)} />
           </div>
           <Footer />
         </div>
