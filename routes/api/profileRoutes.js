@@ -32,10 +32,10 @@ router.get(
   }
 );
 
-//@route: GET 'api/profile/handle/:handle'
+//@route: GET 'api/profile/:handle'
 //@desc:  get user profile by handle
 //@access: public route
-router.get("/handle/:handle", (req, res) => {
+router.get("/:handle", (req, res) => {
   Profile.findOne({ handle: req.params.handle })
     .populate("user", ["name", "avatar"])
     .then(profile => {
@@ -126,11 +126,9 @@ router.post(
       } else {
         Profile.findOne({ handle: profileFields.handle }).then(profile => {
           if (profile) {
-            res
-              .status(400)
-              .json({
-                message: "that handle already exists, please choose another"
-              });
+            res.status(400).json({
+              message: "that handle already exists, please choose another"
+            });
           }
           new Profile(profileFields).save().then(profile => res.json(profile));
         });

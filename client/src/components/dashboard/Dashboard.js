@@ -4,10 +4,15 @@ import { Link } from "react-router-dom";
 import * as actions from "../../actions";
 
 import Spinner from "../common/Spinner";
+import ProfileActions from "./ProfileActions";
 
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentUserProfile();
+  }
+  onDeleteClick(e) {
+    //redux action
+    this.props.deleteUserAccount();
   }
   render() {
     const { user } = this.props.authentication;
@@ -17,7 +22,24 @@ class Dashboard extends Component {
       dashboardContent = <Spinner />;
     } else {
       if (Object.keys(profile).length > 0) {
-        dashboardContent = <h4>To Do: Display Profile</h4>;
+        dashboardContent = (
+          <div>
+            <p className="lead text-muted">
+              Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+            </p>
+            <ProfileActions />
+            {
+              <div style={{ marginBottom: "60px" }}>
+                <button
+                  onClick={this.onDeleteClick.bind(this)}
+                  className="btn btn-danger"
+                >
+                  Delete My Account
+                </button>
+              </div>
+            }
+          </div>
+        );
       } else {
         dashboardContent = (
           <div>

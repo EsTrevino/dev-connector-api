@@ -11,6 +11,7 @@ import Register from "./auth/Register";
 import Login from "./auth/Login";
 import CreateProfile from "./create-profile/CreateProfile";
 import Dashboard from "./dashboard/Dashboard";
+import EditProfile from "./edit-profile/EditProfile";
 import "../style/app.css";
 import setAuthToken from "../utils/SetAuthToken";
 import requireAuth from "./auth/requireAuth";
@@ -47,6 +48,11 @@ class App extends Component {
               exact
               path="/createProfile"
               component={requireAuth(CreateProfile)}
+            />
+            <Route
+              exact
+              path="/edit-profile"
+              component={requireAuth(EditProfile)}
             />
           </div>
           <Footer />

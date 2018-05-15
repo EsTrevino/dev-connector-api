@@ -116,3 +116,23 @@ export const createNewUserProfile = profileData => dispatch => {
       });
     });
 };
+
+export const deleteUserAccount = () => dispatch => {
+  if (window.confirm("Are you sure? This can not be undone.")) {
+    axios
+      .delete(`${ROOT_URL}/profile`)
+      .then(response => {
+        dispatch({
+          type: LOGOUT_USER,
+          payload: {}
+        });
+        history.push("/");
+      })
+      .catch(err => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        });
+      });
+  }
+};
