@@ -16,7 +16,7 @@ class Navbar extends Component {
         </Link>
       );
     } else {
-      <p className="navbar-brand">DevConnector</p>;
+      return <p className="navbar-brand">DevConnector</p>;
     }
   }
   renderLinks() {
@@ -24,12 +24,12 @@ class Navbar extends Component {
       return [
         <li className="nav-item" key="signUp">
           <Link className="nav-link" to="/register">
-            Sign Up
+            Sign Up <i className="fas fa-user-plus" />
           </Link>
         </li>,
         <li className="nav-item" key="logIn">
           <Link className="nav-link" to="/login">
-            Log In
+            Log In <i className="fas fa-sign-in-alt" />
           </Link>
         </li>
       ];
@@ -49,7 +49,7 @@ class Navbar extends Component {
             onClick={this.onLogoutClick.bind(this)}
             to="/"
           >
-            Log Out
+            Log Out <i className="fas fa-sign-out-alt" />
           </Link>
         </li>
       ];

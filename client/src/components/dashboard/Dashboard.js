@@ -26,7 +26,7 @@ class Dashboard extends Component {
               You have not created a user profile yet, please create one
             </p>
             <Link to="/createProfile" className="btn btn-lg btn-info">
-              Create Profile
+              Create Profile <i className="ml-1 fas fa-external-link-alt" />
             </Link>
           </div>
         );

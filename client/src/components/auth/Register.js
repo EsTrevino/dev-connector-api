@@ -96,7 +96,7 @@ class Register extends Component {
                 />
                 {/* <input type="submit" className="btn btn-info btn-block mt-4" /> */}
                 <button action="submit" className="btn btn-info btn-block mt-4">
-                  Sign Up <i className="fas fa-user-plus" />
+                  Sign Up <i className="ml-1 fas fa-user-plus" />
                 </button>
                 {this.renderAlert()}
               </form>

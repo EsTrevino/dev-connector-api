@@ -97,3 +97,22 @@ export const getCurrentUserProfile = () => dispatch => {
       });
     });
 };
+
+export const createNewUserProfile = profileData => dispatch => {
+  //make post request to server
+  axios
+    .post(`${ROOT_URL}/profile`, profileData)
+    .then(response => {
+      dispatch({
+        type: CLEAR_ERRORS
+      });
+      history.push("/dashboard");
+    })
+    //if error, inform user
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};

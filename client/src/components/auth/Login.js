@@ -78,7 +78,7 @@ class Login extends Component {
                   component={this.renderField}
                 />
                 <button action="submit" className="btn btn-info btn-block mt-4">
-                  Log <i className="fas fa-sign-in-alt" />
+                  Log In <i className="ml-1 fas fa-sign-in-alt" />
                 </button>
                 {this.renderAlert()}
               </form>
